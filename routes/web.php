@@ -13,21 +13,28 @@
 
 //use Spinner;
 
-Route::get('/', function () {
+Auth::routes();
 
-    $access_tokens = App\AccessToken::all();
+Route::group(['middleware' => ['auth']], function () {
+  Route::get('/', function () {
+
+      $access_tokens = App\AccessToken::all();
 
 
-     return view("welcome");
+       return view("welcome");
+  });
+
+  Route::post('/', 'AppController@updateChannelVideo');
+
+
+  Route::get('getAccessToken', 'AppController@getAccessToken');
+
+  Route::post('getAccessToken/{id}', 'AppController@updateAccessToken');
+
+  Route::post('updateChannelsTable', 'AppController@updateChannelsTable');
+
+  Route::get('getAccessToken/oauth2callback', 'AppController@saveToken');
+
+  Route::get('/home', 'HomeController@index');
+
 });
-
-Route::post('/', 'AppController@updateChannelVideo');
-
-
-Route::get('getAccessToken', 'AppController@getAccessToken');
-
-Route::post('getAccessToken/{id}', 'AppController@updateAccessToken');
-
-Route::post('updateChannelsTable', 'AppController@updateChannelsTable');
-
-Route::get('getAccessToken/oauth2callback', 'AppController@saveToken');
