@@ -15,13 +15,19 @@
 
 Route::get('/', function () {
 
+    $access_tokens = App\AccessToken::all();
 
-  $spinner = new Spinner();
-
-  //$string = '{Hey|Howdy|Hi there|Hi} {there|mate|bud|buddy}, {{how are|how\'re} {you|ya}|how you doin\'|how {you|ya} {feeling|hanging}|you doing {OK|alright}}?';
-
-
-//  echo $spinner::process($string);
-
- update_video_tags(["one", "two"]);
+ 
+     return view("welcome");
 });
+
+Route::post('/', 'AppController@updateChannelVideo');
+
+
+Route::get('getAccessToken', 'AppController@getAccessToken');
+
+Route::post('getAccessToken/{id}', 'AppController@updateAccessToken');
+
+Route::post('updateChannelsTable', 'AppController@updateChannelsTable');
+
+Route::get('getAccessToken/oauth2callback', 'AppController@saveToken');
