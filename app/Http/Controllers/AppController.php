@@ -130,14 +130,13 @@ class AppController extends Controller
         if ($request->hasFile('youtube')) {
 
          $excel = Excel::load($request->youtube)->get();
-          die($excel);
+
             foreach($excel as $row){
 
-                $channel = AccessToken::select('access_token', 'channel_id')->firstOrCreate(['channel_id' => trim($row->channel_id)]);
-
-
+                $channel = AccessToken::select('access_token', 'channel_id')->first();
+                $options = $request->all();
                 if($channel){
-                    update_video($row, $channel);
+                    update_video($row, $channel, $options);
                 }
 
             }

@@ -49,7 +49,7 @@
         </div>
         <div class="row">
             <div class="col s12 m6 l3">
-              <input type="checkbox" class="filled-in" name="thembnail" id="filled-in-box-thumbnails" />
+              <input type="checkbox" class="filled-in" name="thumbnail" id="filled-in-box-thumbnails" />
               <label for="filled-in-box-thumbnails">Change Thumbnails</label>
             </div>
 
@@ -64,14 +64,14 @@
             </div>
 
             <div class="col s12 m6 l3">
-              <input type="checkbox" class="filled-in" nmae="tag" id="filled-in-box-tags" />
+              <input type="checkbox" class="filled-in" name="tag" id="filled-in-box-tags" />
               <label for="filled-in-box-tags">Change tags</label>
             </div>
         </div>
 
         <div class="row">
             <div class="input-field col s12 m6">
-              <select name="privacy">
+              <select name="privacyStatus">
                 <option value="" disabled selected>Choose your option</option>
                 <option value="private">Private</option>
                 <option value="public">Public</option>
@@ -81,7 +81,7 @@
             </div>
 
             <div class="input-field col s12 m6">
-              <select name="categoryID">
+              <select name="categoryId">
                 <option value="" disabled selected>Choose your option</option>
                 <option value="1">Film &amp; Animation</option>
                 <option value="2">Autos &amp; Vehicles</option>
