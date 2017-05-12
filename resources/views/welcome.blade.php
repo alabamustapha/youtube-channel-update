@@ -14,18 +14,30 @@
       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
- 
-          
+
+
         <!--<link href="css/materialize.min.css" rel="stylesheet" type="text/css">-->
 
     </head>
     <body>
 
     <div class="container">
-      <form action="{{ url('/') }}" method="POST">
-          
+
+            @if (count($errors) > 0)
+              <div class="alert alert-danger">
+                  <ul>
+                      @foreach ($errors->all() as $error)
+                          <li>{{ $error }}</li>
+                      @endforeach
+                  </ul>
+              </div>
+          @endif
+
+      <form action="{{ url('/') }}" method="POST" enctype="multipart/form-data">
+
+
         {{ csrf_field() }}
-        
+
         <div class="file-field input-field">
             <div class="btn">
               <span>File</span>
@@ -89,11 +101,11 @@
               <label>Category</label>
             </div>
         </div>
-        
+
         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
             <i class="material-icons right">send</i>
           </button>
-        
+
         </form>
     </div>
 
@@ -101,7 +113,7 @@
     <!--Import jQuery before materialize.js-->
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-    
+
     <!--<script src="js/jquery-2.1.1.min.js"></script>-->
     <!--<script src="js/materialize.min.js"></script>-->
     <script>

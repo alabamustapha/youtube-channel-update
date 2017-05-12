@@ -17,7 +17,7 @@ Route::get('/', function () {
 
     $access_tokens = App\AccessToken::all();
 
- 
+
      return view("welcome");
 });
 
