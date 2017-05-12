@@ -67,8 +67,6 @@ class AppController extends Controller
 
         $channel = AccessToken::findOrFail($id)->first();
 
-        //dd($channel);
-
         $OAUTH2_CLIENT_ID     = trim($channel->oauth2_client_id);
         $OAUTH2_CLIENT_SECRET = trim($channel->oauth2_client_secret);
 
@@ -107,14 +105,15 @@ class AppController extends Controller
 
           foreach($excel as $row){
 
-              $access_token = AccessToken::where('channel_id', $row->channel_id)
-                  ->firstOrCreate([
-                      'channel_id' => trim($row->channel_id),
-                      'oauth2_client_secret' => trim($row->oauth2_client_secret),
-                      'oauth2_client_id' => trim($row->oauth2_client_id)
-                      ]);
+              if(strlen(trim($row->oauth2_client_secret)) > 23 && str_contains(trim($row->oauth2_client_id), '.apps.googleusercontent.com')){
 
-
+                $access_token = AccessToken::where('channel_id', $row->channel_id)
+                    ->firstOrCreate([
+                        'channel_id' => trim($row->channel_id),
+                        'oauth2_client_secret' => trim($row->oauth2_client_secret),
+                        'oauth2_client_id' => trim($row->oauth2_client_id)
+                        ]);
+              }
           }
 
         }
