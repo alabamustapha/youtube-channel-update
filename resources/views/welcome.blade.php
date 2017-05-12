@@ -23,6 +23,19 @@
 
     <div class="container">
 
+      <a href="{{ url('/logout') }}" class="btn-floating btn-large waves-effect waves-light red"
+      onclick="event.preventDefault();
+               document.getElementById('logout-form').submit();">
+
+        <i class="material-icons">cancel</i>
+
+      </a>
+
+
+      <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+          {{ csrf_field() }}
+      </form>
+
             @if (count($errors) > 0)
               <div class="alert alert-danger">
                   <ul>
@@ -107,6 +120,16 @@
           </button>
 
         </form>
+
+
+
+        @if (session('count'))
+        <div class="row">
+            <div class="col s3">
+                  <span class="new badge" data-badge-caption="Video updated">{{ session('count') }}</span>
+            </div>
+        </div>
+        @endif
     </div>
 
 

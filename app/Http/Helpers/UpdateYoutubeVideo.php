@@ -1,6 +1,7 @@
 <?php
 
-function update_video($row, $channel, $option){
+function update_video($row, $channel, $options){
+
 
   $spinner = new \Spinner();
 
@@ -13,6 +14,7 @@ function update_video($row, $channel, $option){
   $client->setScopes('https://www.googleapis.com/auth/youtube');
   $client->setAccessType('offline');
 
+
   if($channel->access_token != "ACCESS_TOKEN"){
       $client->setAccessToken($channel->access_token);
   }
@@ -23,21 +25,29 @@ function update_video($row, $channel, $option){
 
   // Check to ensure that the access token was successfully acquired.
   if ($client->getAccessToken()) {
+
    try{
+
 
       // REPLACE this value with the video ID of the video being updated.
       $videoId = $row->video_id;
 
 
       // Call the API's videos.list method to retrieve the video resource.
+
+
       $snippetListResponse = $youtube->videos->listVideos("snippet", array('id' => $videoId));
       $statusListResponse = $youtube->videos->listVideos("status", array('id' => $videoId));
 
 
+
       // If $listResponse is empty, the specified video was not found.
       if(empty($snippetListResponse) || empty($statusListResponse)) {
+
         var_dump('<h3>Can\'t find a video with video id: %s</h3> ' . $videoId);
       } else {
+
+
         // Since the request specified a video ID, the response only
         // contains one video resource.
         $video_snippet = $snippetListResponse[0];
@@ -78,19 +88,23 @@ function update_video($row, $channel, $option){
 
         if(isset($options['description']) && $options['description'] == "on"){
           $videoSnippet['description'] = $spinner::process($row->description);
+
         }
 
-        if(isset($options['categoryId']) && $options['categoryId'] == "on"){
+        if(isset($options['categoryId'])){
           $videoSnippet['categoryId'] = $row->category_id;
+
         }
 
-        if(isset($options['privacyStatus']) && $options['privacyStatus'] == "on"){
+
+        if(isset($options['privacyStatus']) &&
+          ( $options['privacyStatus'] == "public" ||
+            $options['privacyStatus'] == "privacy" ||
+            $options['privacyStatus'] == "unlisted")
+          ){
           $videoStatus['privacyStatus'] = $row->privacy;
+
         }
-
-
-
-
 
 
         // Update the video resource by calling the videos.update() method.
@@ -98,13 +112,16 @@ function update_video($row, $channel, $option){
         $statusUpdateResponse = $youtube->videos->update("status", $video_status);
 
 
-
-
         if(isset($options['thumbnail']) && $options['thumbnail'] == "on"){
           $thumbnail_url = update_thumbnail($videoId, random_pic(public_path() . '/thumbnails'), $client, $youtube);
         }
 
         $responseTags = $snippetUpdateResponse['snippet']['tags'];
+
+
+        if($responseTags){
+          return true;
+        }
       }
 
     } catch (Google_Service_Exception $e) {

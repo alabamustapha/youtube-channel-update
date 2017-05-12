@@ -32,6 +32,7 @@ class AppController extends Controller
         $OAUTH2_CLIENT_SECRET = trim($channel->oauth2_client_secret);
 
         $client = new \Google_Client();
+
         $client->setClientId($OAUTH2_CLIENT_ID);
         $client->setClientSecret($OAUTH2_CLIENT_SECRET);
         $client->setScopes('https://www.googleapis.com/auth/youtube');
@@ -54,8 +55,13 @@ class AppController extends Controller
 
 
             $client->authenticate($code);
+
             $channel->access_token = json_encode($client->getAccessToken());
-            $channel->save();
+
+            if($channel->access_token == "null"){
+                $channel->save();
+            }
+
 
             return redirect('getAccessToken');
 
@@ -125,7 +131,7 @@ class AppController extends Controller
 
     public function updateChannelVideo(updateChannelsVideoRequest $request){
 
-
+        $count = 0;
         if ($request->hasFile('youtube')) {
 
          $excel = Excel::load($request->youtube)->get();
@@ -135,12 +141,18 @@ class AppController extends Controller
                 $channel = AccessToken::select('access_token', 'channel_id')->first();
                 $options = $request->all();
                 if($channel){
-                    update_video($row, $channel, $options);
+                    $result = update_video($row, $channel, $options);
+
+                    if($result){
+                      $count++;
+                    }
                 }
 
             }
-
         }
+
+        return redirect('/')->with('count', $count);
+
       }
 
 }
