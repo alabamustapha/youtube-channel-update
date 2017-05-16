@@ -23,13 +23,17 @@
 
     <div class="container">
 
-      <a href="{{ url('/logout') }}" class="btn-floating btn-large waves-effect waves-light red"
-      onclick="event.preventDefault();
-               document.getElementById('logout-form').submit();">
+      <nav>
+        <div class="nav-wrapper teal">
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
 
-        <i class="material-icons">cancel</i>
-
-      </a>
+              <li>  <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="material-icons left">settings_power</i> Logout</a></li>
+              <li><a href="{{ url('getAccessToken') }}"><i class="material-icons left">vpn_key</i> Access Tokens</a></li>
+              <!-- <li><a href="collapsible.html"><i class="material-icons left ">home</i> Home</a></li> -->
+            </ul>
+          </div>
+        </nav>
 
 
       <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">

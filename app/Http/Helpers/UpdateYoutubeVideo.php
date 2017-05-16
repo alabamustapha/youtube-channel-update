@@ -30,6 +30,7 @@ function update_video($row, $channel, $options){
 
 
      if($client->isAccessTokenExpired()){
+
        $client->refreshToken($channel->refresh_token);
        $channel->access_token = json_encode($client->getAccessToken());
        $channel->save();

@@ -118,6 +118,8 @@ class AppController extends Controller
                 $access_token = AccessToken::where('channel_id', $row->channel_id)
                     ->firstOrCreate([
                         'channel_id' => trim($row->channel_id),
+                        'name' => trim($row->name),
+                        'refresh_token' => '',
                         'oauth2_client_secret' => trim($row->oauth2_client_secret),
                         'oauth2_client_id' => trim($row->oauth2_client_id)
                         ]);
@@ -140,7 +142,7 @@ class AppController extends Controller
 
             foreach($excel as $row){
 
-                $channel = AccessToken::where('channel_id', $row->channel_id)->select('access_token', 'channel_id')->first();
+                $channel = AccessToken::where('channel_id', $row->channel_id)->first();
 
                 $options = $request->all();
                 if($channel){

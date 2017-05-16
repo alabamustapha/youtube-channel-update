@@ -23,6 +23,19 @@
 
     <div class="container">
 
+      <nav>
+        <div class="nav-wrapper teal">
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
+
+              <li>  <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="material-icons left">settings_power</i> Logout</a></li>
+              <!-- <li><a href="badges.html"><i class="material-icons left">vpn_key</i> Access Tokens</a></li> -->
+              <li><a href="{{ url('/') }}"><i class="material-icons left ">home</i> Home</a></li>
+            </ul>
+          </div>
+        </nav>
+
+
       @if (count($errors) > 0)
         <div class="alert alert-danger">
             <ul>
@@ -65,6 +78,7 @@
             <table class="striped bordered">
                 <thead>
                   <tr>
+                      <th>Owner Name</th>
                       <th>Channel ID</th>
                       <th>Access Token</th>
                       <th>Refresh Token</th>
@@ -75,6 +89,7 @@
                 <tbody>
                 @foreach($channels as $channel)
                   <tr>
+                    <td>{{ $channel->name }}</td>
                     <td>{{ $channel->channel_id }}</td>
                     <td>{{ $channel->access_token == '' ? 'Unautorized' : 'Autorized' }}</td>
                     <td>{{ $channel->access_token == '' ? 'Unautorized' : 'Autorized' }}</td>
