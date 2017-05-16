@@ -35,7 +35,6 @@ function update_video($row, $channel, $options){
 
       // Call the API's videos.list method to retrieve the video resource.
 
-
       $snippetListResponse = $youtube->videos->listVideos("snippet", array('id' => $videoId));
       $statusListResponse = $youtube->videos->listVideos("status", array('id' => $videoId));
 

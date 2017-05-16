@@ -76,8 +76,8 @@
                 @foreach($channels as $channel)
                   <tr>
                     <td>{{ $channel->channel_id }}</td>
-                    <td>{{ $channel->access_token == 'ACCESS_TOKEN' ? 'Unautorized' : 'Autorized' }}</td>
-                    <td>{{ $channel->access_token == 'ACCESS_TOKEN' ? 'Unautorized' : 'Autorized' }}</td>
+                    <td>{{ $channel->access_token == '' ? 'Unautorized' : 'Autorized' }}</td>
+                    <td>{{ $channel->access_token == '' ? 'Unautorized' : 'Autorized' }}</td>
                     <td>
                         <form action="{{ url('getAccessToken/' . $channel->id) }}" method="POST">
 

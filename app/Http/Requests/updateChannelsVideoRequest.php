@@ -24,7 +24,7 @@ class updateChannelsVideoRequest extends FormRequest
     public function rules()
     {
       return [
-      'youtube' => 'required|mimes:xlsx,xls',
+      'youtube' => 'mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     ];
     }
 }

@@ -16,7 +16,7 @@ class AppController extends Controller
 
     public function getAccessToken(Request $request){
 
-        $channels = AccessToken::where('access_token', 'ACCESS_TOKEN')->get();
+        $channels = AccessToken::where('access_token', null)->get();
 
         return view('access_tokens', compact(['channels']));
 
@@ -24,7 +24,8 @@ class AppController extends Controller
 
     public function saveToken(Request $request){
 
-        $channel = AccessToken::findOrFail($request->session()->get('channel_id'))->first();
+        $channel = AccessToken::findOrFail($request->session()->get('channel_id'));
+
         $code = $request->code;
         $state = $request->state;
 
@@ -36,7 +37,6 @@ class AppController extends Controller
         $client->setClientId($OAUTH2_CLIENT_ID);
         $client->setClientSecret($OAUTH2_CLIENT_SECRET);
         $client->setScopes('https://www.googleapis.com/auth/youtube');
-
         $client->setAccessType('offline');
         $redirect = filter_var(url('getAccessToken/oauth2callback'), FILTER_SANITIZE_URL);
         $client->setRedirectUri($redirect);
@@ -58,7 +58,7 @@ class AppController extends Controller
 
             $channel->access_token = json_encode($client->getAccessToken());
 
-            if($channel->access_token == "null"){
+            if($channel->access_token !== "null"){
                 $channel->save();
             }
 
@@ -71,7 +71,7 @@ class AppController extends Controller
 
     public function updateAccessToken(Request $request, $id){
 
-        $channel = AccessToken::findOrFail($id)->first();
+        $channel = AccessToken::findOrFail($id);
 
         $OAUTH2_CLIENT_ID     = trim($channel->oauth2_client_id);
         $OAUTH2_CLIENT_SECRET = trim($channel->oauth2_client_secret);
@@ -138,7 +138,8 @@ class AppController extends Controller
 
             foreach($excel as $row){
 
-                $channel = AccessToken::select('access_token', 'channel_id')->first();
+                $channel = AccessToken::where('channel_id', $row->channel_id)->select('access_token', 'channel_id')->first();
+
                 $options = $request->all();
                 if($channel){
                     $result = update_video($row, $channel, $options);

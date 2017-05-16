@@ -24,7 +24,7 @@ class updateChannelsTableRequest extends FormRequest
     public function rules()
     {
       return [
-      'channels' => 'required|mimes:xlsx,xls',
+      'channels' => 'required|mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   ];
     }
 }
