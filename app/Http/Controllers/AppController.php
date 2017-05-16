@@ -57,6 +57,7 @@ class AppController extends Controller
             $client->authenticate($code);
 
             $channel->access_token = json_encode($client->getAccessToken());
+            $channel->refresh_token = $client->getRefreshToken();
 
             if($channel->access_token !== "null"){
                 $channel->save();
@@ -71,6 +72,7 @@ class AppController extends Controller
 
     public function updateAccessToken(Request $request, $id){
 
+
         $channel = AccessToken::findOrFail($id);
 
         $OAUTH2_CLIENT_ID     = trim($channel->oauth2_client_id);
@@ -80,7 +82,6 @@ class AppController extends Controller
         $client->setClientId($OAUTH2_CLIENT_ID);
         $client->setClientSecret($OAUTH2_CLIENT_SECRET);
         $client->setScopes('https://www.googleapis.com/auth/youtube');
-
         $client->setAccessType('offline');
         $redirect = filter_var(url('getAccessToken/oauth2callback'), FILTER_SANITIZE_URL);
         $client->setRedirectUri($redirect);
@@ -90,6 +91,7 @@ class AppController extends Controller
 
         // Check if an auth token exists for the required scopes
         $tokenSessionKey = 'token-' . $client->prepareScopes();
+
 
 
         $state = mt_rand();

@@ -29,6 +29,13 @@ function update_video($row, $channel, $options){
    try{
 
 
+     if($client->isAccessTokenExpired()){
+       $client->refreshToken($channel->refresh_token);
+       $channel->access_token = json_encode($client->getAccessToken());
+       $channel->save();
+      }
+
+
       // REPLACE this value with the video ID of the video being updated.
       $videoId = $row->video_id;
 
