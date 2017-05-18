@@ -22,6 +22,14 @@ class AppController extends Controller
 
     }
 
+    public function AuthorizedChannels(Request $request){
+
+        $channels = AccessToken::where('access_token', '<>', null)->get();
+
+        return view('authorized_channels', compact(['channels']));
+
+    }
+
     public function saveToken(Request $request){
 
         $channel = AccessToken::findOrFail($request->session()->get('channel_id'));
@@ -101,6 +109,18 @@ class AppController extends Controller
         $authUrl = $client->createAuthUrl();
 
         return "Authorization Required: <a href='" . $authUrl  . "'>Autorize</a>";
+
+    }
+
+    public function revokeToken(Request $request, $id){
+
+
+        $channel = AccessToken::findOrFail($id);
+        $channel->access_token = null;
+
+        $channel->save();
+
+        return redirect('AuthorizedChannels')->with('message', $channel->name . " Access roked");
 
     }
 

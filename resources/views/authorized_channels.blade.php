@@ -29,7 +29,7 @@
 
               <li>  <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="material-icons left">settings_power</i> Logout</a></li>
-              <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
+              <li><a href="{{ url('getAccessToken') }}"><i class="material-icons left">vpn_key</i> Aceess Tokens</a></li>
               <li><a href="{{ url('/') }}"><i class="material-icons left ">home</i> Home</a></li>
             </ul>
           </div>
@@ -46,30 +46,9 @@
         </div>
     @endif
 
-      <form action="{{ url('updateChannelsTable') }}" method="POST" enctype="multipart/form-data">
-
-        {{ csrf_field() }}
-
-        <div class="file-field input-field">
-            <div class="btn">
-              <span>Channel List File</span>
-              <input type="file" name="channels">
-            </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text">
-            </div>
-        </div>
-
-        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-            <i class="material-icons right">send</i>
-          </button>
-
-        </form>
-
-        <hr>
-        <div class= "row">
+        <div class= "row" style="margin-top: 50px;">
             <div class="col s3">
-                <a href="#!" class="collection-item"><span class="badge new"> {{ $channels->count() }}</span>Unauthorize channel</a>
+                <a href="#!" class="collection-item"><span class="badge"> {{ $channels->count() }}</span>Total Authorize channel</a>
             </div>
         </div>
         <div class="row">
@@ -94,14 +73,14 @@
                     <td>{{ $channel->access_token == '' ? 'Unautorized' : 'Autorized' }}</td>
                     <td>{{ $channel->access_token == '' ? 'Unautorized' : 'Autorized' }}</td>
                     <td>
-                        <form action="{{ url('getAccessToken/' . $channel->id) }}" method="POST">
+                        <form action="{{ url('revokeToken/' . $channel->id) }}" method="POST">
 
                             {{ csrf_field() }}
 
                             <input type="hidden" name="oauth2_client_secret" value="{{ $channel->oauth2_client_secret }}"/>
                             <input type="hidden" name="oauth2_client_id" value="{{ $channel->oauth2_client_id }}"/>
 
-                            <button class="btn waves-effect waves-light" type="submit" name="action">Get Key
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Revoke Access
                                 <i class="material-icons right">send</i>
                              </button>
                         </form>

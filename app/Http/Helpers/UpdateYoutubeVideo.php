@@ -98,19 +98,17 @@ function update_video($row, $channel, $options){
 
         }
 
-        if(isset($options['categoryId'])){
-          $videoSnippet['categoryId'] = $row->category_id;
-
+        if(isset($options['categoryId']) && isset($options['categoryId']) == null){
+          $videoSnippet['categoryId'] = (string)$row->category_id;
+        }else{
+          $videoSnippet['categoryId'] = $options['categoryId'];
         }
 
 
-        if(isset($options['privacyStatus']) &&
-          ( $options['privacyStatus'] == "public" ||
-            $options['privacyStatus'] == "privacy" ||
-            $options['privacyStatus'] == "unlisted")
-          ){
-          $videoStatus['privacyStatus'] = $row->privacy;
-
+        if(isset($options['privacyStatus']) && $options['privacyStatus'] == null){
+            $videoStatus['privacyStatus'] = $row->privacy;
+        }else{
+          $videoStatus['privacyStatus'] = $options['privacyStatus'];
         }
 
 

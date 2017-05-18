@@ -31,6 +31,7 @@
                         <i class="material-icons left">settings_power</i> Logout</a></li>
               <li><a href="{{ url('getAccessToken') }}"><i class="material-icons left">vpn_key</i> Access Tokens</a></li>
               <!-- <li><a href="collapsible.html"><i class="material-icons left ">home</i> Home</a></li> -->
+              <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
             </ul>
           </div>
         </nav>

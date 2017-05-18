@@ -29,7 +29,13 @@ Route::group(['middleware' => ['auth']], function () {
 
   Route::get('getAccessToken', 'AppController@getAccessToken');
 
+  Route::get('AuthorizedChannels', 'AppController@AuthorizedChannels');
+
   Route::post('getAccessToken/{id}', 'AppController@updateAccessToken');
+
+  Route::post('revokeToken/{id}', 'AppController@revokeToken');
+
+
 
   Route::post('updateChannelsTable', 'AppController@updateChannelsTable');
 
