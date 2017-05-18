@@ -2,7 +2,6 @@
 
 function update_video($row, $channel, $options){
 
-
   $spinner = new \Spinner();
 
   $OAUTH2_CLIENT_ID     = trim($channel->oauth2_client_id);
@@ -66,6 +65,8 @@ function update_video($row, $channel, $options){
 
         $r_tags = explode(',', $row->tags);
 
+
+
         foreach ($r_tags as $key => $value) {
           $r_tags[$key] = trim($value);
         }
@@ -98,14 +99,16 @@ function update_video($row, $channel, $options){
 
         }
 
-        if(isset($options['categoryId']) && isset($options['categoryId']) == null){
+
+
+        if(!isset($options['categoryId']) || $options['categoryId'] == null){
           $videoSnippet['categoryId'] = (string)$row->category_id;
         }else{
           $videoSnippet['categoryId'] = $options['categoryId'];
         }
 
 
-        if(isset($options['privacyStatus']) && $options['privacyStatus'] == null){
+        if(!isset($options['privacyStatus']) || $options['privacyStatus'] == null){
             $videoStatus['privacyStatus'] = $row->privacy;
         }else{
           $videoStatus['privacyStatus'] = $options['privacyStatus'];
