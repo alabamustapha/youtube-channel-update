@@ -23,18 +23,26 @@
 
     <div class="container">
 
-      <nav>
-        <div class="nav-wrapper teal">
-          <ul id="nav-mobile" class="left hide-on-med-and-down">
 
+
+        <nav>
+          <div class="nav-wrapper teal">
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
               <li>  <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="material-icons left">settings_power</i> Logout</a></li>
               <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
               <li><a href="{{ url('/') }}"><i class="material-icons left ">home</i> Home</a></li>
-            </ul>
-          </div>
-        </nav>
+              </ul>
+              <ul class="side-nav" id="mobile-demo">
 
+                <li>  <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                          <i class="material-icons left">settings_power</i> Logout</a></li>
+                <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
+                <li><a href="{{ url('/') }}"><i class="material-icons left ">home</i> Home</a></li>
+                </ul>
+            </div>
+          </nav>
 
       @if (count($errors) > 0)
         <div class="alert alert-danger">
@@ -75,7 +83,7 @@
         <div class="row">
 
 
-            <table class="striped bordered">
+            <table class="striped  responsive-table">
                 <thead>
                   <tr>
                       <th>Owner Name</th>
@@ -125,6 +133,7 @@
     <script>
     $(document).ready(function() {
       $('select').material_select();
+          $(".button-collapse").sideNav();
     });
     </script>
     </body>

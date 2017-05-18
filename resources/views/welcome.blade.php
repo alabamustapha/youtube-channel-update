@@ -25,14 +25,23 @@
 
       <nav>
         <div class="nav-wrapper teal">
+          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
           <ul id="nav-mobile" class="left hide-on-med-and-down">
-
               <li>  <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="material-icons left">settings_power</i> Logout</a></li>
               <li><a href="{{ url('getAccessToken') }}"><i class="material-icons left">vpn_key</i> Access Tokens</a></li>
               <!-- <li><a href="collapsible.html"><i class="material-icons left ">home</i> Home</a></li> -->
               <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
             </ul>
+
+            <ul class="side-nav" id="mobile-demo">
+              <li>  <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="material-icons left">settings_power</i> Logout</a></li>
+              <li><a href="{{ url('getAccessToken') }}"><i class="material-icons left">vpn_key</i> Access Tokens</a></li>
+              <!-- <li><a href="collapsible.html"><i class="material-icons left ">home</i> Home</a></li> -->
+              <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
+            </ul>
+
           </div>
         </nav>
 
@@ -147,6 +156,7 @@
     <script>
     $(document).ready(function() {
       $('select').material_select();
+        $(".button-collapse").sideNav();
     });
     </script>
     </body>
