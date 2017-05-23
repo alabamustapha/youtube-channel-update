@@ -30,6 +30,7 @@
               <li>  <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="material-icons left">settings_power</i> Logout</a></li>
               <li><a href="{{ url('getAccessToken') }}"><i class="material-icons left">vpn_key</i> Aceess Tokens</a></li>
+              <li><a href="{{ url('manageThumbnails') }}"><i class="material-icons left">view_list</i> Manage Thumbnails</a></li>
               <li><a href="{{ url('/') }}"><i class="material-icons left ">home</i> Home</a></li>
             </ul>
 
@@ -37,6 +38,7 @@
                 <li>  <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                           <i class="material-icons left">settings_power</i> Logout</a></li>
                 <li><a href="{{ url('getAccessToken') }}"><i class="material-icons left">vpn_key</i> Aceess Tokens</a></li>
+                <li><a href="{{ url('manageThumbnails') }}"><i class="material-icons left">view_list</i> Manage Thumbnails</a></li>
                 <li><a href="{{ url('/') }}"><i class="material-icons left ">home</i> Home</a></li>
               </ul>
             </div>

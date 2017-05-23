@@ -32,6 +32,7 @@
               <li>  <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="material-icons left">settings_power</i> Logout</a></li>
               <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
+              <li><a href="{{ url('manageThumbnails') }}"><i class="material-icons left">view_list</i> Manage Thumbnails</a></li>
               <li><a href="{{ url('/') }}"><i class="material-icons left ">home</i> Home</a></li>
               </ul>
               <ul class="side-nav" id="mobile-demo">
@@ -39,6 +40,7 @@
                 <li>  <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                           <i class="material-icons left">settings_power</i> Logout</a></li>
                 <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
+                <li><a href="{{ url('manageThumbnails') }}"><i class="material-icons left">view_list</i> Manage Thumbnails</a></li>
                 <li><a href="{{ url('/') }}"><i class="material-icons left ">home</i> Home</a></li>
                 </ul>
             </div>

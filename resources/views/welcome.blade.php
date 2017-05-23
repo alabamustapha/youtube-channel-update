@@ -30,8 +30,8 @@
               <li>  <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="material-icons left">settings_power</i> Logout</a></li>
               <li><a href="{{ url('getAccessToken') }}"><i class="material-icons left">vpn_key</i> Access Tokens</a></li>
-              <!-- <li><a href="collapsible.html"><i class="material-icons left ">home</i> Home</a></li> -->
               <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
+              <li><a href="{{ url('manageThumbnails') }}"><i class="material-icons left">view_list</i> Manage Thumbnails</a></li>
             </ul>
 
             <ul class="side-nav" id="mobile-demo">
@@ -40,6 +40,7 @@
               <li><a href="{{ url('getAccessToken') }}"><i class="material-icons left">vpn_key</i> Access Tokens</a></li>
               <!-- <li><a href="collapsible.html"><i class="material-icons left ">home</i> Home</a></li> -->
               <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
+              <li><a href="{{ url('manageThumbnails') }}"><i class="material-icons left">view_list</i> Manage Thumbnails</a></li>
             </ul>
 
           </div>
@@ -68,10 +69,10 @@
         <div class="file-field input-field">
             <div class="btn">
               <span>File</span>
-              <input type="file" name="youtube">
+              <input type="file" name="youtube" required>
             </div>
             <div class="file-path-wrapper">
-              <input class="file-path validate" type="text">
+              <input class="file-path validate" type="text" required>
             </div>
         </div>
         <div class="row">
@@ -97,7 +98,7 @@
         </div>
 
         <div class="row">
-            <div class="input-field col s12 m6">
+            <div class="input-field col s12 m4">
               <select name="privacyStatus">
                 <option value="" disabled selected>Choose your option</option>
                 <option value="private">Private</option>
@@ -107,7 +108,7 @@
               <label>Privacy</label>
             </div>
 
-            <div class="input-field col s12 m6">
+            <div class="input-field col s12 m4">
               <select name="categoryId">
                 <option value="" disabled selected>Choose your option</option>
                 <option value="1">Film &amp; Animation</option>
@@ -127,6 +128,15 @@
               </select>
               <label>Category</label>
             </div>
+            <div class="input-field col s12 m4">
+              <select name="directory" required>
+                <option value="" disabled selected>Choose your option</option>
+                @foreach($directories as $directory)
+                  <option value="{{ explode('\\', $directory)[1] }}">{{ title_case(explode('\\', $directory)[1]) }}</option>
+                @endforeach
+              </select>
+              <label>Thumbnail Directory</label>
+            </div>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
@@ -134,6 +144,7 @@
           </button>
 
         </form>
+
 
 
 
@@ -156,7 +167,8 @@
     <script>
     $(document).ready(function() {
       $('select').material_select();
-        $(".button-collapse").sideNav();
+      $(".button-collapse").sideNav();
+      $('.modal').modal();
     });
     </script>
     </body>

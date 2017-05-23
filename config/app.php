@@ -164,6 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Mikemike\Spinner\SpinnerServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Chumper\Zipper\ZipperServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -229,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Spinner' => Mikemike\Spinner\SpinnerFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Zipper' => Chumper\Zipper\Zipper::class,
 
     ],
 

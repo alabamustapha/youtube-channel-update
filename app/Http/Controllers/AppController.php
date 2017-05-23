@@ -22,12 +22,48 @@ class AppController extends Controller
 
     }
 
+    public function CreateThumbnailsFolder(Request $request){
+
+      if ($request->hasFile('thumbnail_folder') && $request->file('thumbnail_folder')->isValid() ) {
+        $dir_name = explode('.', $request->thumbnail_folder->getClientOriginalName())[0];
+        $zip_thumbnails = zip_open($request->thumbnail_folder);
+        if(is_resource($zip_thumbnails)){
+          \Zipper::make($request->thumbnail_folder)->extractTo('thumbnails/' . $dir_name);
+
+        }
+      }
+
+      return redirect()->back();
+
+    }
+
+    public function deleteThumbnailsFolder(Request $request){
+
+      $success = \File::deleteDirectory($request->thumbnail_folder);
+
+      return back();
+    }
+
+    public function deleteThumbnailsImage(Request $request){
+      dd($request->image);
+    }
+
     public function AuthorizedChannels(Request $request){
 
         $channels = AccessToken::where('access_token', '<>', null)->get();
 
         return view('authorized_channels', compact(['channels']));
 
+    }
+
+    public function getThumbnailsFolder(){
+      $directories = \File::directories('thumbnails');
+      $files = [];
+      foreach ($directories as $key => $value) {
+        $files[$value] = \File::files($value);
+      }
+
+      return view('manage_thumbnails', compact('directories', 'files'));
     }
 
     public function saveToken(Request $request){

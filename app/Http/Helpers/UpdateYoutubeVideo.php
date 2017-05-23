@@ -121,7 +121,7 @@ function update_video($row, $channel, $options){
 
 
         if(isset($options['thumbnail']) && $options['thumbnail'] == "on"){
-          $thumbnail_url = update_thumbnail($videoId, random_pic(public_path() . '/thumbnails'), $client, $youtube);
+          $thumbnail_url = update_thumbnail($videoId, random_pic(public_path() . '/thumbnails/' . $option['directory']), $client, $youtube);
         }
 
         $responseTags = $snippetUpdateResponse['snippet']['tags'];
