@@ -25,6 +25,8 @@ Route::group(['middleware' => ['auth']], function () {
       return view("welcome", compact('directories'));
   });
 
+
+
   Route::post('/', 'AppController@updateChannelVideo');
 
 
@@ -43,6 +45,12 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('updateChannelsTable', 'AppController@updateChannelsTable');
 
   Route::get('getAccessToken/oauth2callback', 'AppController@saveToken');
+
+  Route::get('managePlaylist', 'AppController@managePlaylist');
+
+  Route::post('createPlaylist', 'AppController@createPlaylist');
+
+  Route::get('makePlaylist/{id}', 'AppController@makePlaylist');
 
   Route::post('createThumbnailsFolder', 'AppController@CreateThumbnailsFolder');
 

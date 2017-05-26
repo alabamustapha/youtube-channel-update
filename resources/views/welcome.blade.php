@@ -32,6 +32,7 @@
               <li><a href="{{ url('getAccessToken') }}"><i class="material-icons left">vpn_key</i> Access Tokens</a></li>
               <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
               <li><a href="{{ url('manageThumbnails') }}"><i class="material-icons left">view_list</i> Manage Thumbnails</a></li>
+              <li><a href="{{ url('managePlaylist') }}"><i class="material-icons left">play_arrow</i> Playlists</a></li>
             </ul>
 
             <ul class="side-nav" id="mobile-demo">
@@ -40,6 +41,7 @@
               <li><a href="{{ url('getAccessToken') }}"><i class="material-icons left">vpn_key</i> Access Tokens</a></li>
               <!-- <li><a href="collapsible.html"><i class="material-icons left ">home</i> Home</a></li> -->
               <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
+              <li><a href="{{ url('managePlaylist') }}"><i class="material-icons left">play_arrow</i> Playlists</a></li>
               <li><a href="{{ url('manageThumbnails') }}"><i class="material-icons left">view_list</i> Manage Thumbnails</a></li>
             </ul>
 
@@ -132,7 +134,7 @@
               <select name="directory" required>
                 <option value="" disabled selected>Choose your option</option>
                 @foreach($directories as $directory)
-                  <option value="{{ explode('\\', $directory)[1] }}">{{ title_case(explode('\\', $directory)[1]) }}</option>
+                  <option value="{{ array_last(explode(DIRECTORY_SEPARATOR, $directory)) }}">{{ title_case(array_last(explode(DIRECTORY_SEPARATOR, $directory))) }}</option>
                 @endforeach
               </select>
               <label>Thumbnail Directory</label>

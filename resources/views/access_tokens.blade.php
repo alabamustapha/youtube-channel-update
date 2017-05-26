@@ -33,6 +33,7 @@
                         <i class="material-icons left">settings_power</i> Logout</a></li>
               <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
               <li><a href="{{ url('manageThumbnails') }}"><i class="material-icons left">view_list</i> Manage Thumbnails</a></li>
+              <li><a href="{{ url('managePlaylist') }}"><i class="material-icons left">play_arrow</i> Playlists</a></li>
               <li><a href="{{ url('/') }}"><i class="material-icons left ">home</i> Home</a></li>
               </ul>
               <ul class="side-nav" id="mobile-demo">
@@ -41,7 +42,9 @@
                           <i class="material-icons left">settings_power</i> Logout</a></li>
                 <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
                 <li><a href="{{ url('manageThumbnails') }}"><i class="material-icons left">view_list</i> Manage Thumbnails</a></li>
+                <li><a href="{{ url('managePlaylist') }}"><i class="material-icons left">play_arrow</i> Playlists</a></li>
                 <li><a href="{{ url('/') }}"><i class="material-icons left ">home</i> Home</a></li>
+
                 </ul>
             </div>
           </nav>

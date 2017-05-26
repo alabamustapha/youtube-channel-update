@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\updateChannelsTableRequest;
 use App\Http\Requests\updateChannelsVideoRequest;
 use App\AccessToken;
+use App\Playlist;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -21,6 +22,62 @@ class AppController extends Controller
         return view('access_tokens', compact(['channels']));
 
     }
+
+    public function managePlaylist(){
+      $playlists = Playlist::all();
+
+      if($playlists->count() > 0){
+        return redirect("makePlaylist/" . $playlists->first()->id);
+      }
+      return view('playlist')->with('playlists', $playlists);
+    }
+
+    public function makePlaylist(Request $request, $id){
+
+        $playlist = Playlist::findOrFail($id);
+
+        $channel = AccessToken::where('channel_id', $playlist->channel_id)->first();
+
+        if($channel){
+
+            $nextPageToken = $request->nextPageToken;
+            $result = create_playlist($playlist, $channel, $nextPageToken);
+        }
+
+        return redirect($result);
+    }
+
+
+        public function createPlaylist(Request $request){
+
+              if ($request->hasFile('playlist')) {
+
+               $excel = Excel::load($request->playlist)->get();
+
+                  foreach($excel as $row){
+
+                      $channel = AccessToken::where('channel_id', $row->channel_id)->first();
+
+
+                      if($channel){
+
+                        $privacy = trim($row->privacy);
+
+                        $playlist = Playlist::where('channel_id', $row->channel_id)
+                            ->firstOrCreate([
+                                'channel_id' => trim($row->channel_id),
+                                'title' => trim($row->title),
+                                'description' => trim($row->description),
+                                'privacy' => trim($row->privacy)
+                                ]);
+                      }
+
+                  }
+              }
+
+              $playlists = Playlist::all();
+              return redirect('managePlaylist')->with('playlists', $playlists);
+        }
 
     public function CreateThumbnailsFolder(Request $request){
 

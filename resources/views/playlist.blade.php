@@ -31,7 +31,7 @@
                         <i class="material-icons left">settings_power</i> Logout</a></li>
               <li><a href="{{ url('getAccessToken') }}"><i class="material-icons left">vpn_key</i> Access Tokens</a></li>
               <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
-              <li><a href="{{ url('managePlaylist') }}"><i class="material-icons left">play_arrow</i> Playlists</a></li>
+              <li><a href="{{ url('manageThumbnails') }}"><i class="material-icons left">view_list</i> Manage Thumbnails</a></li>
               <li><a href="{{ url('/') }}"><i class="material-icons left ">home</i> Home</a></li>
             </ul>
 
@@ -41,8 +41,8 @@
               <li><a href="{{ url('getAccessToken') }}"><i class="material-icons left">vpn_key</i> Access Tokens</a></li>
               <!-- <li><a href="collapsible.html"><i class="material-icons left ">home</i> Home</a></li> -->
               <li><a href="{{ url('AuthorizedChannels') }}"><i class="material-icons left">vpn_key</i> Authorized Channel</a></li>
-              <li><a href="{{ url('managePlaylist') }}"><i class="material-icons left">play_arrow</i> Playlists</a></li>
               <li><a href="{{ url('/') }}"><i class="material-icons left ">home</i> Home</a></li>
+              <li><a href="{{ url('manageThumbnails') }}"><i class="material-icons left">view_list</i> Manage Thumbnails</a></li>
             </ul>
 
           </div>
@@ -66,74 +66,63 @@
 
 
         <div class="row">
-          <div class="col s6">
-              <!-- Modal Trigger -->
-              <a class="waves-effect waves-light btn" href="#modal1">New thumbnails Folder</a>
-          </div>
 
-          <!-- Modal Structure -->
-          <div id="modal1" class="modal">
-            <div class="modal-content">
-              <h4>Modal Header</h4>
-              <form action="{{ url('createThumbnailsFolder') }}" method="POST" enctype="multipart/form-data">
+          <form action="{{ url('createPlaylist') }}" method="POST" enctype="multipart/form-data">
 
 
-                {{ csrf_field() }}
+            {{ csrf_field() }}
 
-                <div class="file-field input-field">
-                    <div class="btn">
-                      <span>File</span>
-                      <input type="file" name="thumbnail_folder">
-                    </div>
-                    <div class="file-path-wrapper">
-                      <input class="file-path validate" type="text">
-                    </div>
+            <div class="file-field input-field">
+                <div class="btn">
+                  <span>File</span>
+                  <input type="file" name="playlist">
                 </div>
-                <button class="btn waves-effect waves-light" type="submit" name="action">Upload
-                    <i class="material-icons right">send</i>
-                  </button>
-              </form>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
             </div>
-            <div class="modal-footer">
-              <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-            </div>
-          </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Upload
+                <i class="material-icons right">send</i>
+              </button>
+          </form>
+
 
         </div>
 
         <div class="row">
-            <div class="col s12">
-              <h4>{{ count($directories) }} Thumbanails directories available</h4>
-              <ul class="collapsible" data-collapsible="accordion">
-              @foreach($directories as $directory)
-              <li>
-                <div class="collapsible-header">
-                  <i class="material-icons">folder</i>{{ array_last(explode('\\', $directory)) }}
-                  <form class="right" method="POST" action="{{ url('deleteThumbnailsFolder') }}">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="thumbnail_folder" value="{{ $directory }}">
-                    <button class="btn waves-effect waves-light btn-small" style="padding: 0;" type="submit" name="action">
-                        <i class="material-icons right">delete</i>
-                      </button>
-                  </form>
-                </div>
-                <div class="collapsible-body">
-                    <ul>
+          <table class="striped  responsive-table">
+              <thead>
+                <tr>
+                    <th>Channel ID</th>
+                    <th>Title</th>
+                    <th>Privacy</th>
+                    <th>Action</th>
+                </tr>
+              </thead>
 
-                      @foreach(array_get($files, $directory) as $file)
+              <tbody>
+              @foreach($playlists as $playlist)
+                <tr>
+                  <td>{{ $playlist->channel_id }}</td>
+                  <td>{{ $playlist->title }}</td>
+                  <td>{{ $playlist->privacy }}</td>
+                  <td>
+                      <form action="{{ url('makePlaylist/' . $playlist->id) }}" method="GET" class="create_playlist">
 
-                        <li><i class="material-icons">perm_media</i> {{ array_last(explode('/', $file)) }}
-                          <!-- <a><i class="material-icons right">delete</i></a> -->
-                        </li>
-                      @endforeach
-                    </ul>
-                </div>
-              </li>
+                          {{ csrf_field() }}
+
+                          <button class="btn waves-effect waves-light" type="submit" name="action">Create
+                              <i class="material-icons right">send</i>
+                           </button>
+                      </form>
+
+                  </td>
+                </tr>
               @endforeach
-
-            </ul>
-            </div>
+              </tbody>
+            </table>
         </div>
+
 
 
     </div>
@@ -147,10 +136,11 @@
     <!--<script src="js/materialize.min.js"></script>-->
     <script>
     $(document).ready(function() {
+
       $('select').material_select();
       $(".button-collapse").sideNav();
       $('.modal').modal();
-       $('.collapsible').collapsible();
+      $('.collapsible').collapsible();
     });
     </script>
     </body>
